@@ -13,7 +13,7 @@
     import FunFact from '../components/FunFact.svelte';
     import Leaderboard from '../components/Leaderboard.svelte';
     import LeaderboardItem from '../components/LeaderboardItem.svelte';
-    
+    import LeaderboardItem2 from '../components/LeaderboardItem2.svelte';
     onMount(() => {
         toast.push('Your data has been loaded!', {
             theme: {
@@ -97,20 +97,6 @@
                     explanation="If I were you I would set my status to DND right now..."
                 />
             </Card>
-            <Card name="top-users">
-                <Leaderboard title="Top Users" description="The users you chat the most with!">
-                    {#each $data.topDMs as channel, i}
-                        <LeaderboardItem
-                            position={i}
-                            avatarURL={generateAvatarURL(channel.userData.avatar, channel.userData.id, channel.userData.discriminator)}
-                            username={channel.userData.username}
-                            discriminator={channel.userData.discriminator}
-                            count={channel.messages.length.toLocaleString('en-US')}
-                            word={channel.words}
-                        />
-                    {/each}
-                </Leaderboard>
-            </Card>
             <Card name="hours">
                 <h1>Your Discord Hours</h1>
                 <p>{ hoursLabels[$data.hoursValues.indexOf(Math.max(...$data.hoursValues))] } is definitely your favorite hour to chat with your friends!</p>
@@ -171,6 +157,7 @@
                             name={channel.userData.username}
                             discriminator={channel.userData.discriminator}
                             count={channel.messages.length.toLocaleString('en-US')}
+                            word={channel.words}
                         />
                     {/each}
                 </Leaderboard>
@@ -178,7 +165,7 @@
             <Card name="top-channels">
                 <Leaderboard title="Top Channels" description="The channels you chat the most in!">
                     {#each $data.channels.filter(c => c.data && c.data.guild).sort((a, b) => b.messages.length - a.messages.length).slice(0, 10) as channel, i}
-                        <LeaderboardItem
+                        <LeaderboardItem2
                             position={i}
                             name={channel.name}
                             guild={channel.data.guild.name}
