@@ -182,16 +182,19 @@ export const extractData = async (files) => {
 
     const messagesIndex = JSON.parse(await readFile('messages/index.json'));
     const messagesPathRegex = /messages\/([0-9]{16,32})\/$/;
+   // const messagesPathRegex = /messages\/c([0-9]{16,32})\/$/; // new version
     const channelsIDs = files.filter((file) => messagesPathRegex.test(file.name)).map((file) => file.name.match(messagesPathRegex)[1]);
 
     let messagesRead = 0;
 
     await Promise.all(channelsIDs.map((channelID) => {
         return new Promise((resolve) => {
-
+/*
+            const channelDataPath = `messages/c${channelID}/channel.json`; // new version
+            const channelMessagesPath = `messages/c${channelID}/messages.csv`;
+*/
             const channelDataPath = `messages/${channelID}/channel.json`;
             const channelMessagesPath = `messages/${channelID}/messages.csv`;
-
             Promise.all([
                 readFile(channelDataPath),
                 readFile(channelMessagesPath)
@@ -254,7 +257,7 @@ export const extractData = async (files) => {
     extractedData.topDMs = extractedData.channels
         .filter((channel) => channel.isDM)
         .sort((a, b) => b.messages.length - a.messages.length)
-        .slice(0, 10);
+        .slice(0, 100);
     await Promise.all(extractedData.topDMs.map((channel) => {
         return new Promise((resolve) => {
             fetchUser(channel.dmUserID).then((userData) => {
