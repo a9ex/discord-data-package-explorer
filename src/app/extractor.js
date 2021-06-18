@@ -181,20 +181,17 @@ export const extractData = async (files) => {
     loadTask.set('Loading user messages...');
 
     const messagesIndex = JSON.parse(await readFile('messages/index.json'));
-    const messagesPathRegex = /messages\/([0-9]{16,32})\/$/;
-   // const messagesPathRegex = /messages\/c([0-9]{16,32})\/$/; // new version
+    const messagesPathRegex = /messages\/c([0-9]{16,32})\/$/;
     const channelsIDs = files.filter((file) => messagesPathRegex.test(file.name)).map((file) => file.name.match(messagesPathRegex)[1]);
 
     let messagesRead = 0;
 
     await Promise.all(channelsIDs.map((channelID) => {
         return new Promise((resolve) => {
-/*
-            const channelDataPath = `messages/c${channelID}/channel.json`; // new version
+
+            const channelDataPath = `messages/c${channelID}/channel.json`;
             const channelMessagesPath = `messages/c${channelID}/messages.csv`;
-*/
-            const channelDataPath = `messages/${channelID}/channel.json`;
-            const channelMessagesPath = `messages/${channelID}/messages.csv`;
+
             Promise.all([
                 readFile(channelDataPath),
                 readFile(channelMessagesPath)
@@ -265,7 +262,6 @@ export const extractData = async (files) => {
                 const channelIndex = extractedData.topDMs.findIndex((c) => c.data.id === channel.data.id);
                 extractedData.topDMs[channelIndex].userData = userData;
                 extractedData.topDMs[channelIndex].words = getFavoriteWords(words);
-               // console.log(getFavoriteWords(words))
                 if (!extractedData.topDMs[channelIndex].words[2]) extractedData.topDMs[channelIndex].words = [{word: "N/A", count: 0}, {word: "N/A", count: 0}]
                 resolve();
             });

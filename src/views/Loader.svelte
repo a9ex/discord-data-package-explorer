@@ -78,7 +78,7 @@
             console.log(`[debug] Data extracted in ${(Date.now() - extractStartAt) / 1000} seconds.`);
         }).catch((err) => {
             if (err.message === 'invalid_package_missing_messages') {
-                error = 'Some data is missing in your package, therefore it can not be read. <br> It is a bug on Discord side (06-10-21), and will be fixed in the next few days. <br> Join <a href="https://androz2091.fr/discord">our Discord</a> to get more information.';
+                error = 'Des données sont manquantes dans votre package OU alors vous utilisez une ancienne version du package. Redemandez vos données à Discord.';
                 loading = false;
             } else {
                 error = 'Something went wrong... Click or drop your package file here to retry';
@@ -135,7 +135,7 @@
     {:else}
         <div>
             <div style="display: flex; align-items: center;">
-                <p>Click or drop your package file here</p>
+                <p>Déposez ici. ATTENTION: supporte uniquement la nouvelle version du package!</p>
                 <svg on:click="{helpPopup}" class="help" style="width: 25px; margin-left: 5px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
         </div>

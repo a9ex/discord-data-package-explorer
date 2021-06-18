@@ -25,7 +25,7 @@
         }
         .card.top-users {
             grid-column: 1 / 6;
-            grid-row: 2 / 6;
+          /*  grid-row: 2 / 6; */
         }
         .card.top-channels {
             grid-column: 6 / 12;

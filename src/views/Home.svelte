@@ -1,7 +1,7 @@
 <script>
     import { fly } from 'svelte/transition';
     import { data } from "../app/store";
-    import { generateAvatarURL, getGitHubContributors } from '../app/helpers';
+    import { generateAvatarURL, getGitHubContributors, getFavoriteWords } from '../app/helpers';
     import Chart from 'svelte-frappe-charts';
     import Modal from '../components/Modal.svelte';
     import { getContext, onMount } from 'svelte';
@@ -38,7 +38,7 @@
             <Card name="profile">
                 <ProfileCard
                     name="{ $data.user.username }"
-                    discriminator="????"
+                    discriminator=""
                     avatar="{ generateAvatarURL($data.user.avatar_hash, $data.user.id, $data.user.discriminator) }"
                 />
             </Card>
@@ -164,13 +164,14 @@
             </Card>
             <Card name="top-channels">
                 <Leaderboard title="Top Channels" description="The channels you chat the most in!">
-                    {#each $data.channels.filter(c => c.data && c.data.guild).sort((a, b) => b.messages.length - a.messages.length).slice(0, 10) as channel, i}
-                        <LeaderboardItem2
+                    {#each $data.channels.filter(c => c.data && c.data.guild).sort((a, b) => b.messages.length - a.messages.length).slice(0, 50) as channel, i}
+                        <LeaderboardItem
                             position={i}
                             name={channel.name}
                             guild={channel.data.guild.name}
                             count={channel.messages.length}
                             channel
+                            word={getFavoriteWords(channel.messages.flat().map((message) => message.words).flat().filter((w) => w.length > 5 && w.length < 23))}
                         />
                     {/each}
                 </Leaderboard>
