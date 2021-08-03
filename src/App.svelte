@@ -1,16 +1,24 @@
 <script>
-	import { loaded } from './app/store';
+	import { onMount } from 'svelte';
+	import { Router, Route } from 'svelte-routing';
+	import decodeJwt from 'jwt-decode';
 
-	import Home from './views/Home.svelte';
+	import Header from './components/Header.svelte';
+	import Footer from './components/Footer.svelte';
+
+	import Stats from './views/Stats.svelte';
 	import Loader from './views/Loader.svelte';
+	import Help from './views/Help.svelte';
+	import About from './views/About.svelte';
 
 	import Modal from 'svelte-simple-modal';
 
-	import { SvelteToast } from '@zerodevx/svelte-toast'
+	import { SvelteToast } from '@zerodevx/svelte-toast';
 
 	const options = {
-		duration: 10000
-	}
+	    duration: 10000
+	};
+
 </script>
 
 <svelte:head>
@@ -21,19 +29,27 @@
 	<SvelteToast {options} />
 	<Modal
 		styleContent={{ 'background-color': '#18191c', color: 'white' }}
-		closeButton={false}
+		closeOnOuterClick={false}
+		closeOnEsc={false}
 	>
-		{#if $loaded}
-			<Home />
-		{:else}
-			<Loader />
-		{/if}
+		<Router>
+			<Header />
+			<div>
+				<Route path="/about" component={About} />
+				<Route path="/stats" component={Stats} />
+				<Route path="/stats/demo" component={Stats} />
+				<Route path="/help" component={Help} />
+				<Route path="/*" component={Loader} />
+			</div>
+			<Footer />
+		</Router>
 	</Modal>
 </main>
 
 <style>
 	.app {
-		width: 100vw;
-		height: 100vh;
+		min-height: 100vh;
+		display: grid;
+		grid-template-rows: 1fr auto;
 	}
 </style>

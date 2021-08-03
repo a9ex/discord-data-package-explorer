@@ -22,7 +22,7 @@ export const getFavoriteWords = (words) => {
     
     for (let index = 0; index < length; index++) {
         item = words[index];
-        item = item.toLowerCase()
+        item = item.toLowerCase();
         if (!item) continue;
     
         if (!object[item]) object[item] = 1;

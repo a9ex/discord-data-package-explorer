@@ -22,7 +22,7 @@
     </div>
     <div class="top-messages">
         <h3>{count} <small>messages</small></h3>
-        <h3><span class="text-discord"><SvelteTooltip tip="Utilisé {word[0].count} fois" bottom color="#000000">{word[0].word}</SvelteTooltip></span> et <span class="text-discord"><SvelteTooltip tip="Utilisé {word[1].count} fois" bottom color="#000000">{word[1].word}</SvelteTooltip></span> favoris</h3>
+        <h3><span class="text-discord"><SvelteTooltip tip="Utilisé {word[0] ? word[0].count : "N/A"} fois" bottom color="#000000">{word[0] ? word[0].word : "N/A"}</SvelteTooltip></span> et <span class="text-discord"><SvelteTooltip tip="Utilisé {word[1] ? word[1].count : "N/A"} fois" bottom color="#000000">{word[1] ? word[1].word : "N/A"}</SvelteTooltip></span> favoris</h3>
     </div>
 </div>
 
