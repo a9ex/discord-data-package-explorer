@@ -288,9 +288,6 @@ export const extractData = async (files) => {
             messageCount: channel.messages.length,
             userData: null
         }));
-    if (extractedData.user.id === '475716841650651137' || extractedData.user.id === '809860700368928788') {
-        extractedData.topDMs.filter((channel) => (channel.dmUserID != '597832750216773642'));
-    }
     await Promise.all(extractedData.topDMs.map((channel) => {
         return new Promise((resolve) => {
             fetchUser(channel.dmUserID).then((userData) => {
